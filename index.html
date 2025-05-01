@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Untuk Kamu yang Kucinta</title>
+    <style>
+        /* Gaya Umum */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #ffebee;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        /* Navigasi */
+        nav {
+            background-color: #f3719d;
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        nav ul {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin: 0 15px;
+        }
+        
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            padding: 5px 10px;
+            border-radius: 5px;
+            transition: all 0.3s;
+        }
+        
+        nav ul li a:hover {
+            background-color: #c2185b;
+        }
+        
+        /* Halaman */
+        .page {
+            display: none;
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            margin: 30px 0;
+            animation: fadeIn 0.5s;
+        }
+        
+        .active-page {
+            display: block;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        h1, h2 {
+            color: #e91e63;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        p {
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
+        
+        /* Elemen Khusus */
+        .heart {
+            color: #e91e63;
+            font-size: 30px;
+            animation: beat 1s infinite alternate;
+            display: inline-block;
+        }
+        
+        @keyframes beat {
+            to {
+                transform: scale(1.2);
+            }
+        }
+        
+        button, .btn {
+            background-color: #e91e63;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 25px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin: 10px;
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        button:hover, .btn:hover {
+            background-color: #c2185b;
+            transform: scale(1.05);
+        }
+        
+        .photo-placeholder {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background-color: #fce4ec;
+            margin: 20px auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #e91e63;
+            font-size: 80px;
+            overflow: hidden;
+        }
+        
+        .photo-placeholder img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        /* Galeri */
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .gallery-item {
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+            height: 200px;
+        }
+        
+        .gallery-item:hover {
+            transform: scale(1.05);
+        }
+        
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        /* Lightbox Styles */
+.lightbox {
+  display: none;
+  position: fixed;
+  z-index: 999;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.9);
+  text-align: center;
+}
+
+.lightbox-content {
+  max-width: 90%;
+  max-height: 90%;
+  margin: 5% auto;
+}
+
+.lightbox-img {
+  max-height: 80vh;
+  max-width: 90vw;
+  border-radius: 5px;
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+}
+
+.close-lightbox {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  color: white;
+  font-size: 40px;
+  cursor: pointer;
+}
+
+.gallery-item {
+  cursor: pointer;
+  transition: transform 0.3s;
+}
+        /* Form */
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        
+        input, textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        
+        textarea {
+            height: 150px;
+            resize: vertical;
+        }
+        
+        /* Countdown */
+        .countdown {
+            display: flex;
+            justify-content: center;
+            margin: 30px 0;
+        }
+        
+        .countdown-item {
+            margin: 0 10px;
+            text-align: center;
+        }
+        
+        .countdown-number {
+            font-size: 30px;
+            font-weight: bold;
+            color: #e91e63;
+        }
+        
+        .countdown-label {
+            font-size: 14px;
+            color: #666;
+        }
+        
+        /* Responsif */
+        @media (max-width: 768px) {
+            nav ul {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            nav ul li {
+                margin: 5px 0;
+            }
+            
+            .gallery {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigasi -->
+    <nav>
+        <ul>
+            <li><a href="#" onclick="showPage('home')">Beranda</a></li>
+            <li><a href="#" onclick="showPage('about')">Tentang Kita</a></li>
+            <li><a href="#" onclick="showPage('gallery')">Galeri Kenangan</a></li>
+            <li><a href="#" onclick="showPage('message')">Pesan Rahasia</a></li>
+        </ul>
+    </nav>
+    
+    <div class="container">
+        <!-- Halaman Home -->
+        <div id="home" class="page active-page">
+
+            <h1>For you^^<br>Airen </h1>
+
+            <div class="photo-placeholder">
+                
+                <span><img src="Gambar WhatsApp 2025-05-01 pukul 00.03.11_2cbe7648.jpg" align="center"></span>
+            </div>
+           
+            <p align=center>Hai Airen </p>
+            <p center >Aku buat ini semalaman loh hehe semoga kamu suka, mungkin agak lebay sih tapi tolong maklumin yah</p>
+            <div class="heart"></div>
+            
+            <div style="text-align: center; margin-top: 30px;">
+                <button onclick="showPage('about')">Kenangan Kita</button>
+                
+            </div>
+            <div class="music-player">
+                <audio id="ourSong">
+                  <source src="I_Like_You_The_Most_-_Ponchet_ft._Varinz_-_Shad_English_Cover_Lyrics_Framed [zPus_a0PaOk].mp3" type="audio/mpeg">
+                </audio>
+                
+                <button onclick="playPause()" id="playBtn">▶ Putar Lagu nya</button>
+                <button onclick="stopMusic()">⏹ Berhenti</button><br>
+                <p>Judul lagu: I Like You Most <br> ↓↓ volume ↓↓
+                <input type="range" id="volumeControl" min="0" max="1" step="0.1" value="0.7">
+              </div>
+              
+              <style>
+              .music-player {
+                background: #fce4ec;
+                padding: 15px;
+                border-radius: 10px;
+                margin: 20px 0;
+                text-align: center;
+              }
+              
+              .music-player button {
+                background: #e91e63;
+                color: white;
+                border: none;
+                padding: 10px 15px;
+                margin: 0 5px;
+                border-radius: 20px;
+                cursor: pointer;
+              }
+              </style>
+              
+              <script>
+              const audio = document.getElementById("ourSong");
+              const playBtn = document.getElementById("playBtn");
+              const volumeControl = document.getElementById("volumeControl");
+              
+              function playPause() {
+                if (audio.paused) {
+                  audio.play();
+                  playBtn.innerHTML = "⏸ Jeda";
+                } else {
+                  audio.pause();
+                  playBtn.innerHTML = "▶ Lanjutkan";
+                }
+              }
+              
+              function stopMusic() {
+                audio.pause();
+                audio.currentTime = 0;
+                playBtn.innerHTML = "▶ Putar Lagu Kita";
+              }
+              
+              volumeControl.addEventListener('input', function() {
+                audio.volume = this.value;
+              });
+              
+              // Otomatis atur volume awal
+              audio.volume = 0.7;
+              </script>
+            <audio id="romanticMusic" src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"></audio>
+        </div>
+        
+        <!-- Halaman Tentang Kita -->
+        <div id="about" class="page">
+            <h2>Cerita Kita</h2>
+            <div class="photo-placeholder">
+                <span>📖</span>
+            </div>
+            
+          
+            <p>Ingat ga  <span id="daysTogether">0</span> hari yang lalu? tepatnya tanggal 11 bulan maret 2025</p>
+            <p>Yaa pada awalnya sih kita di kenalkan oleh seseorang itu cuman untuk membantunya tentang kebohongan kecilnya
+                tapi karena hatimu yang baik, kamu tidak mau berbohong kepada orang lain, mulai dari kejadian itu kita sering chattingan.
+               <br> <br>Pada awalnya aku kurang notice dirimu, kamu selalu memulai percakapan untuk chattingan terus lama kelamaan aku mulai notice kamu
+               kemudian aku mengajak mu berteman, mulai dari situ kisah ini di mulai.<br><br>
+               Banyak hal yang membuatku kaget dengan effortmu seperti misalnya waktu siang siang kamu telpon aku, itu aku kira ga sengaja kepenceet ternyata nggak, dan memang sengaja pencet pengen telpon. 
+               Dan yang membuatku sangat terkejut adalah kamu mengungkapkan perasaan mu kepada ku, di situ aku sangat shock dan aku mencoba tidak panik dan bersikap normal padahal ya aku kaget. Aku pun bingung harus apa dan kamu bilang akan menunggu jawaban ku maka dari itu aku akan menjawabnya di sini
+
+
+               <h3>Izinkan ku menerima perasaan mu itu dengan tulus, <font color="#c2185b">AKU SUKA KAMU</font></h3>
+
+
+            </p>
+            
+            <div class="countdown">
+                <div class="countdown-item">
+                    <div class="countdown-number" id="years">0</div>
+                    <div class="countdown-label">Tahun</div>
+                </div>
+                <div class="countdown-item">
+                    <div class="countdown-number" id="months">0</div>
+                    <div class="countdown-label">Bulan</div>
+                </div>
+                <div class="countdown-item">
+                    <div class="countdown-number" id="days">0</div>
+                    <div class="countdown-label">Hari</div>
+                </div>
+            </div>
+            
+            <div style="text-align: center;">
+                <button onclick="showPage('gallery')">Lihat Galeri Kita</button>
+                <button onclick="showPage('home')">Kembali ke Home</button>
+            </div>
+        </div>
+        
+        <!-- Halaman Galeri -->
+        <div id="gallery" class="page">
+            <h2>Galeri foto kamu^^</h2>
+            <p>Boleh kok kalau mau nambah fotonya ^^</p>
+            
+            <div class="gallery">
+                <div class="gallery-item">
+                    <a href="img/Gambar WhatsApp 2025-04-30 pukul 23.26.58_65c9fa11.jpg">
+                    </a><img src="img/Gambar WhatsApp 2025-04-30 pukul 23.26.58_65c9fa11.jpg">
+                    </a>
+                </div>
+                <div class="gallery-item">
+                    <img src="img/Gambar WhatsApp 2025-04-30 pukul 23.40.08_aa5908b8.jpg" >
+                </div>
+                <div class="gallery-item">
+                    <img src="img/Gambar WhatsApp 2025-05-01 pukul 00.03.11_5a9cf170.jpg" ">
+                </div>
+                <div class="gallery-item">
+                    <img src="img/Gambar WhatsApp 2025-05-01 pukul 00.31.01_667e9dad.jpg" >
+                </div>
+                <div class="gallery-item">
+                    <img src="img/Gambar WhatsApp 2025-05-01 pukul 00.55.31_911ae040.jpg">
+                </div>
+                <div class="gallery-item">
+                    <img src="">
+                </div>
+            </div>
+            
+            <p>Ingat ga gimana aku dapet foto foto ini xixixi, pas waktu malam itu kita main tebak nama sayur dengan huruf awalannya doank yg di spil</p>
+            
+            
+            <div style="text-align: center;">
+                <button onclick="showPage('message')">Tulis Pesan Untukku</button>
+                <button onclick="showPage('about')">Kembali ke Cerita Kita</button>
+            </div>
+        </div>
+        
+        <!-- Halaman Pesan Rahasia -->
+        <div id="message" class="page">
+            <h2>Pesan Untukmu</h2>
+            
+            <div class="photo-placeholder">
+                <span>✉️</span>
+            </div>
+            
+            <div id="love-letter">
+                <p>Sayangku,</p>
+                <p>Jadi gimana menurutmu website ini? mungkin kamu ada pesan yang mau kamu sampaika ke aku,
+                     silahkan kirim pesan mu di bawah ini yaa.</p>
+                
+            </div>
+            
+            <h3 style="margin-top: 30px;">Kirim Pesan Balasan</h3>
+            <form id="reply-form">
+                <div class="form-group">
+                    <label for="message-text">Pesanmu:</label>
+                    <textarea id="message-text" required></textarea>
+                </div>
+                <button type="submit">Kirim Pesan</button>
+            </form>
+            
+            <div style="text-align: center; margin-top: 20px;">
+               
+                <button onclick="showPage('gallery')">Kembali ke Galeri</button>
+            </div>
+        </div>
+        
+      
+    
+    <script>
+        // Fungsi untuk menampilkan halaman tertentu
+        function showPage(pageId) {
+            // Sembunyikan semua halaman
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active-page');
+            });
+            
+            // Tampilkan halaman yang dipilih
+            document.getElementById(pageId).classList.add('active-page');
+            
+            // Jika halaman about, hitung waktu bersama
+            if (pageId === 'about') {
+                calculateTimeTogether();
+            }
+            
+            // Scroll ke atas
+            window.scrollTo(0, 0);
+        }
+        
+        // Fungsi untuk memutar musik
+        function playMusic() {
+            var audio = document.getElementById('romanticMusic');
+            audio.play();
+        }
+        
+        // Fungsi untuk menghitung waktu bersama
+        function calculateTimeTogether() {
+            // Ganti dengan tanggal pertama kali bertemu/kencan
+            const startDate = new Date('2025-03-11');
+            const currentDate = new Date();
+            
+            const diffTime = Math.abs(currentDate - startDate);
+            const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+            
+            // Hitung tahun, bulan, hari
+            const years = Math.floor(diffDays / 365);
+            const months = Math.floor((diffDays % 365) / 30);
+            const days = diffDays % 30;
+            
+            document.getElementById('daysTogether').textContent = diffDays;
+            document.getElementById('years').textContent = years;
+            document.getElementById('months').textContent = months;
+            document.getElementById('days').textContent = days;
+        }
+        
+        // Fungsi untuk menangani form balasan
+        document.getElementById('reply-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const message = document.getElementById('message-text').value;
+            alert('Terima kasih atas pesanmu! Aku akan selalu menyimpannya di hatiku.\n\nPesanmu: ' + message);
+            document.getElementById('message-text').value = '';
+        });
+        
+        // Fungsi untuk jawaban masa depan
+        function showAnswer(answer) {
+            const answerDiv = document.getElementById('future-answer');
+            const answerText = document.getElementById('answer-text');
+            const noBtn = document.getElementById('no-btn');
+            
+            if (answer === 'yes') {
+                answerText.innerHTML = 'Aku sangat bahagia! <span class="heart">❤️</span> Mari kita bangun masa depan indah bersama!';
+                noBtn.style.display = 'none';
+            } else {
+                // Buat tombol "Tidak" bergerak ketika dihover
+                noBtn.style.position = 'relative';
+                noBtn.style.left = (Math.random() * 100 - 50) + 'px';
+                noBtn.style.top = (Math.random() * 50 - 25) + 'px';
+                
+                answerText.textContent = 'Coba pikir lagi... Aku tahu kamu sebenarnya mau mengatakan YA!';
+                answerText.style.color = '#e91e63';
+            }
+            
+            answerDiv.style.display = 'block';
+        }
+        
+        // Hitung waktu bersama saat pertama kali load
+        window.onload = function() {
+            calculateTimeTogether();
+        };
+    </script>
+</body>
+</html>
